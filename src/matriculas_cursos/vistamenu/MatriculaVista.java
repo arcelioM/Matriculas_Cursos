@@ -220,4 +220,43 @@ public class MatriculaVista {
         }
     }
     
+    
+    public void mostrarMatriculaPorCedula(Estudiante estudianteArg){
+        
+        //BUSCAR LA INFORMACION DE COMPLETA DEL ESTUDIANTE
+        estudianteArg=estudianteDao.getByCedula(estudianteArg);
+        
+        //BUSCAR INFORMACION DE LAS MATRICULAS ASOCIADA A EL ESTUDIANTE
+        Matriculas matriculaArg=new Matriculas();
+        matriculaArg.setEstudianteId(estudianteArg.getId());
+        List<Matriculas> matriculas=matriculasDao.getByEstudianteId(matriculaArg);
+        
+        for(Matriculas matricula: matriculas){
+            
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Informacion de matricula");
+            System.out.println("---------------------------------------------------------");
+            
+            System.out.print("ID: "+matricula.getId() +" | Costo de matricula: "+matricula.getCosto() + " | Turno: "+this.mostrarTurno(matricula.getTurnoId()));
+            System.out.println(" | Fecha de creacion: "+matricula.getFecheRegistro());
+            
+            //MOSTRAREMOS LA INFORMACION DEL ESTUDIANTE MATRICULADO
+             System.out.println("");
+            System.out.println("Informacion del estudiante");
+            System.out.println("---------------------------------------------------------");
+            Estudiante estudiante = new Estudiante(matricula.getEstudianteId());
+            estudiante=estudianteDao.getById(estudiante);
+            System.out.print("Cedula: "+estudiante.getCedula() +" | Nombre: "+estudiante.getNombre()+" | Apellido: "+estudiante.getApellido());
+            System.out.println(" | Edad: "+estudiante.getEdad()+" | Fecha de nacimiento: "+estudiante.getFechaNacimiento());
+            
+            //AHORA MOSTRAREMOS TODOS LOS CURSOS QUE SE HA MATRICULADO EL ESTUDIANTE
+            System.out.println("");
+            System.out.println("Cursos mastriculados");
+            System.out.println("---------------------------------------------------------");
+            this.mosTrarCursosMatriculados(matricula.getId());
+            
+        }
+    }
 }

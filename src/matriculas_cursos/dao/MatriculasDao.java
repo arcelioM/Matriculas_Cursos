@@ -86,7 +86,7 @@ public class MatriculasDao {
                  
                 matriculas.setEstudianteId(rs.getInt(2));
                 matriculas.setCosto(rs.getDouble(3));
-                matriculas.setTurnoId(4);
+                matriculas.setTurnoId(rs.getInt(4));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
@@ -105,6 +105,55 @@ public class MatriculasDao {
         }
 
     }
+    
+    public List<Matriculas> getByEstudianteId(Matriculas matriculas){
+        
+        
+        if(matriculas==null || matriculas.getEstudianteId()==null || matriculas.getEstudianteId()<=0){
+            return Collections.emptyList();
+        }
+        
+        ResultSet rs=null;
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="SELECT * FROM matriculas WHERE estudiante_id=?";
+        Integer idEstudiante=matriculas.getEstudianteId();
+        
+        try{
+            List<Matriculas> mastriculasDisponibles=new ArrayList<>();
+            ps=conexionBD.prepareStatement(query);
+            ps.setInt(1, idEstudiante);
+            
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                Matriculas matriculaDisponible= new Matriculas();
+                matriculaDisponible.setId(rs.getInt(1));
+                matriculaDisponible.setEstudianteId(rs.getInt(2));
+                matriculaDisponible.setCosto(rs.getDouble(3));
+                matriculaDisponible.setTurnoId(rs.getInt(4));
+
+                //FORMATEO DE FECHA Y HORA
+                String formato = "yyyy-MM-dd HH:mm:ss";
+                DateTimeFormatter formateador = DateTimeFormatter.ofPattern(formato);
+           
+                LocalDateTime fechaCreacion=LocalDateTime.parse(rs.getString(5), formateador);
+                matriculaDisponible.setFecheRegistro(fechaCreacion);
+                mastriculasDisponibles.add(matriculaDisponible);
+                
+            }
+            
+            return mastriculasDisponibles;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.getById()");
+            e.printStackTrace(System.out);
+            return Collections.emptyList();
+            
+        }
+
+    }
+    
+    
     
    
     
