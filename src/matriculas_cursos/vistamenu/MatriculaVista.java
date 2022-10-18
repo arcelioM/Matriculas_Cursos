@@ -259,4 +259,20 @@ public class MatriculaVista {
             
         }
     }
+    
+    
+    public void agregarCurso(){
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("");
+        System.out.print("Nombre del curso: ");
+        String nombre=sc.nextLine();
+        Cursos curso= new Cursos();
+        curso.setNombre(nombre);
+        
+        Integer registroInsertado=cursosDao.save(curso);
+        if(registroInsertado==1){
+            System.out.println("Curso agregado");
+            System.out.println("");
+        }
+    }
 }

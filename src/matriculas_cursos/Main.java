@@ -25,8 +25,7 @@ public class Main {
             System.out.println("1 - Registrar una matricula");
             System.out.println("2 - Ver matriculas");
             System.out.println("3 - Ver matriculas por cedula");
-            System.out.println("4 - Actualizar Datos de matricula");
-            System.out.println("5 - Eliminar matricula");
+            System.out.println("4 - Agregar nuevo curso");
             
             System.out.print("Escriba la opcion: ");
             int elecion=sc.nextInt();
@@ -50,10 +49,13 @@ public class Main {
             case 2 -> mv.mostrarMatriculas();
             case 3-> {System.out.print("Escriba numero de cedula: ");
                      Integer cedula=sc.nextInt();
+                     sc.nextLine();
                      Estudiante estudiante= new Estudiante();
                      estudiante.setCedula(cedula);
                      mv.mostrarMatriculaPorCedula(estudiante);
                       }
+            case 4-> mv.agregarCurso();
+            
             default -> System.out.println("Eleccion no valida");
                     
         }
