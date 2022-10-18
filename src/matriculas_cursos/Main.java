@@ -1,64 +1,60 @@
 
 package matriculas_cursos;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
-import matriculas_cursos.dao.CursosDao;
-import matriculas_cursos.dao.EstudianteDao;
-import matriculas_cursos.dao.TurnosDao;
-import matriculas_cursos.tablas.Cursos;
-import matriculas_cursos.tablas.Estudiante;
-import matriculas_cursos.tablas.Turnos;
+import java.util.Scanner;
 
 public class Main {
 
     
     public static void main(String[] args) {
-        // TODO code application logic here
-        EstudianteDao estudianteDao= new EstudianteDao();
-        //Estudiante estudiante= new Estudiante(3234123, "Esteban", "Gonzalez",23, LocalDate.of(1999, Month.MARCH, 2));
-       
-        //Integer row=estudianteDao.save(estudiante);
-        //if(row==1){
-            //List<Estudiante> estudiantes=estudianteDao.getAll();
-            
-            //estudiantes.forEach(System.out::println);
-        //}
-        /*Estudiante es= new Estudiante(1);
-         es=estudianteDao.getById(es);
-        System.out.println("ID: "+es);
-        es=estudianteDao.getByCedula(es);
-        System.out.println("Cedula: "+es);
-        
-        es.setEdad(24);
-        Integer row=estudianteDao.update(es);
-        if(row==1){
-            System.out.println(es);
-        }*/
-        /*Turnos turno= new Turnos();
-        turno.setNombre("Matutino");
-        TurnosDao dao=new TurnosDao();
-        System.out.println(dao.save(turno));
-        turno.setNombre("Vespertino");
-        System.out.println(dao.save(turno));
-        turno.setNombre("Nocturno");
-        System.out.println(dao.save(turno));*/
-        /*Cursos c= new Cursos();
-        c.setNombre("Español");
-        CursosDao cd=new CursosDao();
-        System.out.println(cd.save(c));
-        c.setNombre("Matematica");
-        System.out.println(cd.save(c));
-        c.setNombre("Historia");
-        System.out.println(cd.save(c));*/
-        
-        
 
+        Scanner sc= new Scanner(System.in);
         
+        int inicioRegistro=1;
         
+        while(inicioRegistro==1){
+            sc.nextLine();
+            System.out.println("BIENVENIDO");
+            System.out.println("------------------------------");
+            System.out.println("Menu de opciones");
+            System.out.println("1 - Registrar una matricula");
+            System.out.println("2 - Ver matriculas");
+            System.out.println("3 - Actualizar Datos de matricula");
+            System.out.println("4 - Eliminar matricula");
+            
+            int elecion=sc.nextInt();
+            Main.ejecutarEleccion(elecion);
+            inicioRegistro=Main.decidirContinuacion(sc);
+            
+        }
+        
+       
         
     }
+    
+    public static void ejecutarEleccion(int eleccion){
+        System.out.println("Inicio de ejecucion");
+        switch(eleccion){
+            
+            case 1: 
+                    
+        }
+    }
+    
+     public static int decidirContinuacion(Scanner sc){
+        System.out.println("¿Desea agregar registrar otra matricula?");
+        System.out.println("1 - Si");
+        System.out.println("0 - No");
+        
+        int desicion=sc.nextInt();
+        
+        if(desicion<0 || desicion>1){
+            System.out.println("Eleccion no valida");
+           return Main.decidirContinuacion(sc);
+        }
+        
+        return desicion;
+     }
+     
     
 }
