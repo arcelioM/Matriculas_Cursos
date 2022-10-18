@@ -9,38 +9,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import matriculas_cursos.dao.connection.ConnectionMySql;
-import matriculas_cursos.tablas.Turnos;
+import matriculas_cursos.tablas.Cursos;
 
 
-public class TurnosDao {
+public class CursosDao {
     
-    /**
-     * METODO QUE RETORNARA TODOS LOS Turnos REGISTRADO
+     /**
+     * METODO QUE RETORNARA TODOS LOS CURSOS REGISTRADO
      * @return 
      */
-    public List<Turnos> getAll(){
+    public List<Cursos> getAll(){
         ResultSet rs=null;
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
         String query="SELECT * FROM turnos";
-            List<Turnos> listTurnos=new ArrayList<>();
+            List<Cursos> listCursos=new ArrayList<>();
         try{
             ps=conexionBD.prepareStatement(query);
             rs=ps.executeQuery();
             
             
             while(rs.next()){
-                Turnos turno= new Turnos();
+                Cursos curso= new Cursos();
                 
-                turno.setId(rs.getInt(1));
-                turno.setNombre(rs.getString(3));
+                curso.setId(rs.getInt(1));
+                curso.setNombre(rs.getString(3));
 
                 
-                listTurnos.add(turno);
+                listCursos.add(curso);
             }
-            return listTurnos;
+            return listCursos;
         }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.getAll()");
+            System.out.println("matriculas_cursos.dao.CursosDao.getAll()");
             e.printStackTrace(System.out);
             return Collections.emptyList();
         }
@@ -48,22 +48,22 @@ public class TurnosDao {
     }
     
     /**
-     * Buscara a un turno por su id
-     * @param turnos
-     * @return estudiante
+     * Buscara a un curso por su id
+     * @param cursos
+     * @return curso
      */
-    public Turnos getById(Turnos turnos){
+    public Cursos getById(Cursos cursos){
         
         
-        if(turnos==null || turnos.getId()==null || turnos.getId()<=0){
-            return turnos;
+        if(cursos==null || cursos.getId()==null || cursos.getId()<=0){
+            return cursos;
         }
         
         ResultSet rs=null;
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="SELECT nombre FROM turnos WHERE id=?";
-        Integer id=turnos.getId();
+        String query="SELECT nombre FROM cursos WHERE id=?";
+        Integer id=cursos.getId();
         
         try{
             ps=conexionBD.prepareStatement(query);
@@ -73,15 +73,15 @@ public class TurnosDao {
             
             if(rs.next()){
                  
-                turnos.setNombre(rs.getString(1));
+                cursos.setNombre(rs.getString(1));
                 
             }
             
-            return turnos;
+            return cursos;
         }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.getById()");
+            System.out.println("matriculas_cursos.dao.CursosDao.getById()");
             e.printStackTrace(System.out);
-            return turnos;
+            return cursos;
         }
 
     }
@@ -91,83 +91,83 @@ public class TurnosDao {
     /**
      * 1 si la operacion se ejcuta con exito
      * 0 si hubo algun error
-     * @param turnos
+     * @param cursos
      * @return Integer
      */
-    public Integer save(Turnos turnos){
+    public Integer save(Cursos cursos){
         
         /**
          * ESTO ES PARA EVITAR QUE SE HAGA ALGUNA OPERACION QUE PROVOQUE UN ERROR
          */
-        if(turnos==null || turnos.getId()!=null){
+        if(cursos==null || cursos.getId()!=null){
             return 0;
         }
         
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="INSERT INTO turnos (nombre) VALUES(?)";
+        String query="INSERT INTO cursos (nombre) VALUES(?)";
         
         try{
             ps=conexionBD.prepareStatement(query);
 
-            ps.setString(1, turnos.getNombre());
+            ps.setString(1, cursos.getNombre());
            
             
             Integer rowAffected=ps.executeUpdate();
             
             return rowAffected;
         }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.save()");
+            System.out.println("matriculas_cursos.dao.CursosDao.save()");
             e.printStackTrace(System.out);
             return 0;
         }
     }
     
-    public Integer update(Turnos turnos){
+    public Integer update(Cursos cursos){
         
-        if(turnos==null || turnos.getId()==null || turnos.getId()<=0){
+        if(cursos==null || cursos.getId()==null || cursos.getId()<=0){
             return 0;
         }
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="UPDATE turnos SET nombre=? WHERE id=?";
+        String query="UPDATE cursos SET nombre=? WHERE id=?";
         
         try{
             ps=conexionBD.prepareStatement(query);
 
-            ps.setString(1, turnos.getNombre());
-            ps.setInt(2, turnos.getId());
+            ps.setString(1, cursos.getNombre());
+            ps.setInt(2, cursos.getId());
             
             Integer rowAffected=ps.executeUpdate();
             
             return rowAffected;
         }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.update()");
+            System.out.println("matriculas_cursos.dao.CursosDao.update()");
             e.printStackTrace(System.out);
             return 0;
         }
     }
     
-    public Integer remove(Turnos turnos){
+    public Integer remove(Cursos cursos){
         
-        if(turnos==null || turnos.getId()==null || turnos.getId()<=0){
+        if(cursos==null || cursos.getId()==null || cursos.getId()<=0){
             return 0;
         }
         
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM turnos WHERE id=?";
+        String query="DELETE FROM cursos WHERE id=?";
         
         try{
             ps=conexionBD.prepareStatement(query);
            
-            ps.setInt(1, turnos.getId());
+            ps.setInt(1, cursos.getId());
             
             Integer rowAffected=ps.executeUpdate();
             
             return rowAffected;
         }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.remove()");
+            System.out.println("matriculas_cursos.dao.CursosDao.remove()");
             e.printStackTrace(System.out);
             return 0;
         }

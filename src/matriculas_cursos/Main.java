@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import matriculas_cursos.dao.CursosDao;
 import matriculas_cursos.dao.EstudianteDao;
 import matriculas_cursos.dao.TurnosDao;
+import matriculas_cursos.tablas.Cursos;
 import matriculas_cursos.tablas.Estudiante;
 import matriculas_cursos.tablas.Turnos;
 
@@ -35,14 +37,22 @@ public class Main {
         if(row==1){
             System.out.println(es);
         }*/
-        Turnos turno= new Turnos();
+        /*Turnos turno= new Turnos();
         turno.setNombre("Matutino");
         TurnosDao dao=new TurnosDao();
         System.out.println(dao.save(turno));
         turno.setNombre("Vespertino");
         System.out.println(dao.save(turno));
         turno.setNombre("Nocturno");
-        System.out.println(dao.save(turno));
+        System.out.println(dao.save(turno));*/
+        Cursos c= new Cursos();
+        c.setNombre("Español");
+        CursosDao cd=new CursosDao();
+        System.out.println(cd.save(c));
+        c.setNombre("Matematica");
+        System.out.println(cd.save(c));
+        c.setNombre("Historia");
+        System.out.println(cd.save(c));
 
         
         
