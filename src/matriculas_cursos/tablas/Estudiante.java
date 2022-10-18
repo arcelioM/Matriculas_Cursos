@@ -21,6 +21,7 @@ public class Estudiante {
         this.id = id;
     }
 
+    
     public Estudiante(Integer id, Integer cedula, String nombre, String apellido, Integer edad, LocalDate fechaNacimiento, LocalDateTime fechaCreacion) {
         this.id = id;
         this.cedula = cedula;
