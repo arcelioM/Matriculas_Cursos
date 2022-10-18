@@ -1,0 +1,197 @@
+
+package matriculas_cursos.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import matriculas_cursos.dao.connection.ConnectionMySql;
+import matriculas_cursos.tablas.Matriculas;
+
+
+public class MatriculasDao {
+    
+    /**
+     * METODO QUE RETORNARA TODOS LOS Matriculas REGISTRADA
+     * @return Matriculas
+     */
+    public List<Matriculas> getAll(){
+        ResultSet rs=null;
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="SELECT * FROM matriculas";
+            List<Matriculas> listMatriculas=new ArrayList<>();
+        try{
+            ps=conexionBD.prepareStatement(query);
+            rs=ps.executeQuery();
+            
+            
+            while(rs.next()){
+                Matriculas matriculas= new Matriculas();
+                
+                matriculas.setId(rs.getInt(1));
+                matriculas.setEstudianteId(rs.getInt(2));
+                matriculas.setCosto(rs.getDouble(3));
+                matriculas.setTurnoId(4);
+
+                //FORMATEO DE FECHA Y HORA
+                String formato = "yyyy-MM-dd HH:mm:ss";
+                DateTimeFormatter formateador = DateTimeFormatter.ofPattern(formato);
+           
+                LocalDateTime fechaCreacion=LocalDateTime.parse(rs.getString(5), formateador);
+                matriculas.setFecheRegistro(fechaCreacion);
+                
+                listMatriculas.add(matriculas);
+            }
+            return listMatriculas;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.getAll()");
+            e.printStackTrace(System.out);
+            return Collections.emptyList();
+        }
+       
+    }
+    
+    /**
+     * Buscara a un turno por su id
+     * @param matriculas
+     * @return matriculas
+     */
+    public Matriculas getById(Matriculas matriculas){
+        
+        
+        if(matriculas==null || matriculas.getId()==null || matriculas.getId()<=0){
+            return matriculas;
+        }
+        
+        ResultSet rs=null;
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="SELECT * FROM matriculas WHERE id=?";
+        Integer id=matriculas.getId();
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+            ps.setInt(1, id);
+            
+            rs=ps.executeQuery();
+            
+            if(rs.next()){
+                 
+                matriculas.setEstudianteId(rs.getInt(2));
+                matriculas.setCosto(rs.getDouble(3));
+                matriculas.setTurnoId(4);
+
+                //FORMATEO DE FECHA Y HORA
+                String formato = "yyyy-MM-dd HH:mm:ss";
+                DateTimeFormatter formateador = DateTimeFormatter.ofPattern(formato);
+           
+                LocalDateTime fechaCreacion=LocalDateTime.parse(rs.getString(5), formateador);
+                matriculas.setFecheRegistro(fechaCreacion);
+                
+            }
+            
+            return matriculas;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.getById()");
+            e.printStackTrace(System.out);
+            return matriculas;
+        }
+
+    }
+    
+   
+    
+    /**
+     * 1 si la operacion se ejcuta con exito
+     * 0 si hubo algun error
+     * @param matriculas 
+     * @return Integer
+     */
+    public Integer save(Matriculas matriculas){
+        
+        /**
+         * ESTO ES PARA EVITAR QUE SE HAGA ALGUNA OPERACION QUE PROVOQUE UN ERROR
+         */
+        if(matriculas==null || matriculas.getId()!=null){
+            return 0;
+        }
+        
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="INSERT INTO matriculas (estudlante_Id,costo,turno_id) VALUES(?,?.?)";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+            
+            ps.setInt(1, matriculas.getEstudianteId());
+            ps.setDouble(2, matriculas.getCosto());
+            ps.setInt(3, matriculas.getTurnoId());
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.save()");
+            e.printStackTrace(System.out);
+            return 0;
+        }
+    }
+    
+    public Integer update(Matriculas matriculas){
+        
+        if(matriculas==null || matriculas.getId()==null || matriculas.getId()<=0){
+            return 0;
+        }
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="UPDATE matriculas SET estudiante_id=?, costo=?,turno_id=? WHERE id=?";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+
+           ps.setInt(1, matriculas.getEstudianteId());
+           ps.setDouble(2, matriculas.getCosto());
+           ps.setInt(3, matriculas.getTurnoId());
+           ps.setInt(4, matriculas.getId());
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.update()");
+            e.printStackTrace(System.out);
+            return 0;
+        }
+    }
+    
+    public Integer remove(Matriculas matriculas){
+        
+        if(matriculas==null || matriculas.getId()==null || matriculas.getId()<=0){
+            return 0;
+        }
+        
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="DELETE FROM matriculas WHERE id=?";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+           
+            ps.setInt(1, matriculas.getId());
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.MatriculasDao.remove()");
+            e.printStackTrace(System.out);
+            return 0;
+        }
+    }
+}

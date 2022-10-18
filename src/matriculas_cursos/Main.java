@@ -45,14 +45,16 @@ public class Main {
         System.out.println(dao.save(turno));
         turno.setNombre("Nocturno");
         System.out.println(dao.save(turno));*/
-        Cursos c= new Cursos();
+        /*Cursos c= new Cursos();
         c.setNombre("Español");
         CursosDao cd=new CursosDao();
         System.out.println(cd.save(c));
         c.setNombre("Matematica");
         System.out.println(cd.save(c));
         c.setNombre("Historia");
-        System.out.println(cd.save(c));
+        System.out.println(cd.save(c));*/
+        
+        
 
         
         
