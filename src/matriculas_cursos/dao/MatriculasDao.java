@@ -3,6 +3,7 @@ package matriculas_cursos.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ public class MatriculasDao {
                 matriculas.setId(rs.getInt(1));
                 matriculas.setEstudianteId(rs.getInt(2));
                 matriculas.setCosto(rs.getDouble(3));
-                matriculas.setTurnoId(4);
+                matriculas.setTurnoId(rs.getInt(4));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
@@ -124,16 +125,23 @@ public class MatriculasDao {
         
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="INSERT INTO matriculas (estudlante_Id,costo,turno_id) VALUES(?,?.?)";
+        String query="INSERT INTO matriculas (estudiante_id,costo,turno_id) VALUES(?,?,?)";
         
         try{
-            ps=conexionBD.prepareStatement(query);
+            ps=conexionBD.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, matriculas.getEstudianteId());
             ps.setDouble(2, matriculas.getCosto());
             ps.setInt(3, matriculas.getTurnoId());
             
             Integer rowAffected=ps.executeUpdate();
+            
+            if(rowAffected==1){
+                ResultSet rs=ps.getGeneratedKeys();
+                if(rs.next()){
+                    return rs.getInt(1); //DEVOLVERA EL ID CREADO AL GENERAL EL REGISTRO
+                }
+            }
             
             return rowAffected;
         }catch(SQLException e){

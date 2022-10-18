@@ -19,6 +19,13 @@ public class Matriculas {
         this.id = id;
     }
 
+    public Matriculas(Integer estudianteId, Double costo, Integer turnoId) {
+        this.estudianteId = estudianteId;
+        this.costo = costo;
+        this.turnoId = turnoId;
+    }
+
+    
     public Matriculas(Integer id, Integer estudianteId, Double costo, Integer turnoId, LocalDateTime fecheRegistro) {
         this.id = id;
         this.estudianteId = estudianteId;

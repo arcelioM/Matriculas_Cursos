@@ -22,7 +22,7 @@ public class CursosDao {
         ResultSet rs=null;
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
-        String query="SELECT * FROM turnos";
+        String query="SELECT * FROM cursos";
             List<Cursos> listCursos=new ArrayList<>();
         try{
             ps=conexionBD.prepareStatement(query);
@@ -33,7 +33,7 @@ public class CursosDao {
                 Cursos curso= new Cursos();
                 
                 curso.setId(rs.getInt(1));
-                curso.setNombre(rs.getString(3));
+                curso.setNombre(rs.getString(2));
 
                 
                 listCursos.add(curso);

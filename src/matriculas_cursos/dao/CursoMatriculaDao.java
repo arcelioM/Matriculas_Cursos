@@ -45,13 +45,13 @@ public class CursoMatriculaDao {
         
     }
     
-    public CursoMatricula getByMatriculaId(CursoMatricula cursoMatricula){
+    public List<CursoMatricula> getByMatriculaId(CursoMatricula cursoMatricula){
         ResultSet rs=null;
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
         String query="SELECT * FROM curso_matricula WHERE matricula_id=?";
         
-        
+        List<CursoMatricula> cursosMatriculados=new ArrayList<>();
         try{
             ps=conexionBD.prepareStatement(query);
             ps.setInt(1,cursoMatricula.getMatriculaId() );
@@ -59,17 +59,17 @@ public class CursoMatriculaDao {
             rs=ps.executeQuery();
             
             
-            if(rs.next()){
-                
-                cursoMatricula.setCursoId(rs.getInt(1));
-                cursoMatricula.setMatriculaId(rs.getInt(2));
-
+            while(rs.next()){
+                CursoMatricula cursosDisponibles= new CursoMatricula();
+                cursosDisponibles.setCursoId(rs.getInt(1));
+                cursosDisponibles.setMatriculaId(rs.getInt(2));
+                cursosMatriculados.add(cursosDisponibles);
             }
-            return cursoMatricula;
+            return cursosMatriculados;
         }catch(SQLException e){
             System.out.println("matriculas_cursos.dao.CursoMatriculaDao.getByMatriculaId()");
             e.printStackTrace(System.out);
-            return cursoMatricula;
+            return Collections.emptyList();
         }
         
         

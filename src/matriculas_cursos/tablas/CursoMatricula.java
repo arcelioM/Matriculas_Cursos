@@ -15,8 +15,8 @@ public class CursoMatricula {
     public CursoMatricula() {
     }
 
-    public CursoMatricula(Integer cursoId) {
-        this.cursoId = cursoId;
+    public CursoMatricula(Integer matriculaId) {
+        this.matriculaId = matriculaId;
     }
 
     public Integer getCursoId() {

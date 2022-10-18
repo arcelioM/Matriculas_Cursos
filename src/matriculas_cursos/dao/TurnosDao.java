@@ -33,7 +33,7 @@ public class TurnosDao {
                 Turnos turno= new Turnos();
                 
                 turno.setId(rs.getInt(1));
-                turno.setNombre(rs.getString(3));
+                turno.setNombre(rs.getString(2));
 
                 
                 listTurnos.add(turno);
