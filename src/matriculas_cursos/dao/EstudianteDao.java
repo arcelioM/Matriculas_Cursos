@@ -138,4 +138,58 @@ public class EstudianteDao {
         }
 
     }
+    
+    public Integer save(Estudiante estudiante){
+        
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="INSERT INTO estudiantes (cedula,nombre,apellido,edad,fechaNacimiento)(?,?,?,?,?)";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+            
+            ps.setInt(1, estudiante.getCedula());
+            ps.setString(2, estudiante.getNombre());
+            ps.setString(3, estudiante.getApellido());
+            ps.setInt(4, estudiante.getEdad());
+            ps.setString(4, estudiante.getFechaNacimiento().toString());
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.EstudianteDao.save()");
+            e.printStackTrace(System.out);
+            return 0;
+        }
+    }
+    
+    public Integer update(Estudiante estudiante){
+        
+        if(estudiante==null || estudiante.getId()==null || estudiante.getId()<=0){
+            return 0;
+        }
+        PreparedStatement ps=null;
+        Connection conexionBD=ConnectionMySql.getConexion();
+        String query="UPDATE estudiantes SET cedula=?, nombre=?, apellido=?, edad=?, fechaNacimiento=? WHERE id=?";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+            
+            ps.setInt(1, estudiante.getCedula());
+            ps.setString(2, estudiante.getNombre());
+            ps.setString(3, estudiante.getApellido());
+            ps.setInt(4, estudiante.getEdad());
+            ps.setString(5, estudiante.getFechaNacimiento().toString());
+            ps.setInt(6, estudiante.getId());
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            System.out.println("matriculas_cursos.dao.EstudianteDao.update()");
+            e.printStackTrace(System.out);
+            return 0;
+        }
+    }
 }
