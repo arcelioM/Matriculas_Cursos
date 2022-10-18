@@ -4,7 +4,7 @@ package matriculas_cursos.tablas;
 public class Turnos {
     
     private Integer id;
-    private String name;
+    private String nombre;
 
     public Turnos() {
     }
@@ -13,9 +13,9 @@ public class Turnos {
         this.id = id;
     }
 
-    public Turnos(Integer id, String name) {
+    public Turnos(Integer id, String nombre) {
         this.id = id;
-        this.name = name;
+        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -26,17 +26,17 @@ public class Turnos {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "Turnos{" + "id=" + id + ", name=" + name + '}';
+        return "Turnos{" + "id=" + id + ", nombre=" + nombre + '}';
     }
     
     
