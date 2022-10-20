@@ -148,12 +148,13 @@ public class MatriculaVista {
             int registrosCreados=cursoMatriculaDao.save(cursoMatricula);
             if(registrosCreados<=0){
                 System.out.println("Error en registro de cursos matriculados");
-                break;
+                break; //CUANDO SE EJECUTA EL BREAK, ROMPERA EL CICLO POR COMPLETO
             }
         }
         
         System.out.println("Registro de matriculas realizados");
     }
+    
     
     public void mostrarMatriculas(){
         

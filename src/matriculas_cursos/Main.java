@@ -2,9 +2,7 @@
 package matriculas_cursos;
 
 import java.util.Scanner;
-import matriculas_cursos.dao.TurnosDao;
 import matriculas_cursos.tablas.Estudiante;
-import matriculas_cursos.tablas.Turnos;
 import matriculas_cursos.vistamenu.MatriculaVista;
 
 public class Main {
@@ -35,28 +33,32 @@ public class Main {
             
         }
         
-               /*TurnosDao dao=new TurnosDao();
-        Turnos turno=new Turnos(1);
-        System.out.println(dao.getById(turno));
-        */
     }
     
     public static void ejecutarEleccion(int eleccion){
         MatriculaVista mv=new MatriculaVista();
         System.out.println("");
         switch(eleccion){
-            case 1 -> mv.registrarMatricula();
-            case 2 -> mv.mostrarMatriculas();
-            case 3-> {System.out.print("Escriba numero de cedula: ");
-                     Integer cedula=sc.nextInt();
-                     sc.nextLine();
-                     Estudiante estudiante= new Estudiante();
-                     estudiante.setCedula(cedula);
-                     mv.mostrarMatriculaPorCedula(estudiante);
-                      }
-            case 4-> mv.agregarCurso();
+            case 1 :
+                    mv.registrarMatricula();
+                    break;
+            case 2 : 
+                    mv.mostrarMatriculas();
+                    break;
+            case 3 : 
+                    System.out.print("Escriba numero de cedula: ");
+                    Integer cedula=sc.nextInt();
+                    sc.nextLine();
+                    Estudiante estudiante= new Estudiante();
+                    estudiante.setCedula(cedula);
+                    mv.mostrarMatriculaPorCedula(estudiante);
+                    break;
+                    
+            case 4 : 
+                    mv.agregarCurso();
+                    break;
             
-            default -> System.out.println("Eleccion no valida");
+            default : System.out.println("Eleccion no valida");
                     
         }
     }
