@@ -99,7 +99,7 @@ public class MatriculaVista {
         Integer turnoId=sc.nextInt();
         sc.nextLine();
         
-        Matriculas matricula=new Matriculas(estudianteId, costo, turnoId);
+        /*Matriculas matricula=new Matriculas(estudianteId, costo, turnoId);
         
         Integer idGenerado=matriculasDao.save(matricula);
         
@@ -112,7 +112,7 @@ public class MatriculaVista {
             System.out.println("Error en creacion de matricula......");
         }
         
-        
+        */
     }
     
     /**
@@ -142,7 +142,7 @@ public class MatriculaVista {
         }
         
         //REGISTRAR CADA CURSO MATRICULADO EN LA BD
-        Integer matriculaId=matricula.getId();
+       /* Integer matriculaId=matricula.getId();
         for(Integer idCurso : cursosSeleccionados){
             CursoMatricula cursoMatricula= new CursoMatricula(idCurso, matriculaId);
             int registrosCreados=cursoMatriculaDao.save(cursoMatricula);
@@ -150,7 +150,7 @@ public class MatriculaVista {
                 System.out.println("Error en registro de cursos matriculados");
                 break; //CUANDO SE EJECUTA EL BREAK, ROMPERA EL CICLO POR COMPLETO
             }
-        }
+        }*/
         
         System.out.println("Registro de matriculas realizados");
     }
@@ -173,11 +173,11 @@ public class MatriculaVista {
             System.out.println("Informacion de matricula");
             System.out.println("---------------------------------------------------------");
             
-            System.out.print("ID: "+matricula.getId() +" | Costo de matricula: "+matricula.getCosto() + " | Turno: "+this.mostrarTurno(matricula.getTurnoId()));
-            System.out.println(" | Fecha de creacion: "+matricula.getFecheRegistro());
+           // System.out.print("ID: "+matricula.getId() +" | Costo de matricula: "+matricula.getCosto() + " | Turno: "+this.mostrarTurno(matricula.getTurnoId()));
+            //System.out.println(" | Fecha de creacion: "+matricula.getFecheRegistro());
             
             //MOSTRAREMOS LA INFORMACION DEL ESTUDIANTE MATRICULADO
-             System.out.println("");
+           /*  System.out.println("");
             System.out.println("Informacion del estudiante");
             System.out.println("---------------------------------------------------------");
             Estudiante estudiante = new Estudiante(matricula.getEstudianteId());
@@ -191,7 +191,7 @@ public class MatriculaVista {
             System.out.println("---------------------------------------------------------");
             this.mosTrarCursosMatriculados(matricula.getId());
             
-            
+            */
         }
 
     }
@@ -208,7 +208,7 @@ public class MatriculaVista {
     
     private void mosTrarCursosMatriculados(Integer matriculaId){
         
-        CursoMatricula cursoMatricula=new CursoMatricula(matriculaId);
+        /* CursoMatricula cursoMatricula=new CursoMatricula(matriculaId);
         List<CursoMatricula> cursoMatriculas=cursoMatriculaDao.getByMatriculaId(cursoMatricula);
         Integer cont=0;
         for( CursoMatricula cm : cursoMatriculas){
@@ -218,7 +218,7 @@ public class MatriculaVista {
             
             System.out.println(cont+" - "+curso.getNombre());
             System.out.println("----------------------------------------------------");
-        }
+        } */
     }
     
     
@@ -228,7 +228,7 @@ public class MatriculaVista {
         estudianteArg=estudianteDao.getByCedula(estudianteArg);
         
         //BUSCAR INFORMACION DE LAS MATRICULAS ASOCIADA A EL ESTUDIANTE
-        Matriculas matriculaArg=new Matriculas();
+        /*Matriculas matriculaArg=new Matriculas();
         matriculaArg.setEstudianteId(estudianteArg.getId());
         List<Matriculas> matriculas=matriculasDao.getByEstudianteId(matriculaArg);
         
@@ -259,6 +259,7 @@ public class MatriculaVista {
             this.mosTrarCursosMatriculados(matricula.getId());
             
         }
+        */
     }
     
     
