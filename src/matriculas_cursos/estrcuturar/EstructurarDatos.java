@@ -3,6 +3,7 @@ package matriculas_cursos.estrcuturar;
 
 import java.util.List;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import matriculas_cursos.dao.CursoMatriculaDao;
 import matriculas_cursos.dao.CursosDao;
@@ -94,5 +95,21 @@ public class EstructurarDatos {
         }
         
         return tableModel;
+    }
+    
+    public DefaultComboBoxModel cargarDatosCursos(){
+        
+        List<Cursos> listCursos= this.cursosDao.getAll();
+        DefaultComboBoxModel dataCombo= new DefaultComboBoxModel();
+        dataCombo.addAll(listCursos);
+        return dataCombo;
+    }
+    
+    public DefaultComboBoxModel cargarDatosTurnos(){
+        
+        List<Turnos> listTurnos= this.turnosDao.getAll();
+        DefaultComboBoxModel dataCombo= new DefaultComboBoxModel();
+        dataCombo.addAll(listTurnos);
+        return dataCombo;
     }
 }
