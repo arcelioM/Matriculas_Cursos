@@ -36,7 +36,7 @@ public class Turnos {
 
     @Override
     public String toString() {
-        return "Turnos{" + "id=" + id + ", nombre=" + nombre + '}';
+        return nombre ;
     }
     
     

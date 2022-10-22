@@ -38,7 +38,7 @@ public class Cursos {
 
     @Override
     public String toString() {
-        return "Cursos{" + "id=" + id + ", nombre=" + nombre + '}';
+        return  nombre;
     }
     
     
