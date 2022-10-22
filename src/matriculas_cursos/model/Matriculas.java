@@ -1,5 +1,5 @@
 
-package matriculas_cursos.tablas;
+package matriculas_cursos.model;
 
 import java.time.LocalDateTime;
 
@@ -7,10 +7,12 @@ import java.time.LocalDateTime;
 public class Matriculas {
     
     private Integer id;
-    private Integer estudianteId;
+    //private Integer estudianteId;
     private Double costo;
-    private Integer turnoId;
+    //private Integer turnoId;
     private LocalDateTime fecheRegistro;
+    private Estudiante estudianteId;
+    private Turnos turnoId;
 
     public Matriculas() {
     }
@@ -19,14 +21,14 @@ public class Matriculas {
         this.id = id;
     }
 
-    public Matriculas(Integer estudianteId, Double costo, Integer turnoId) {
+    public Matriculas(Estudiante estudianteId, Double costo, Turnos turnoId) {
         this.estudianteId = estudianteId;
         this.costo = costo;
         this.turnoId = turnoId;
     }
 
     
-    public Matriculas(Integer id, Integer estudianteId, Double costo, Integer turnoId, LocalDateTime fecheRegistro) {
+    public Matriculas(Integer id, Estudiante estudianteId, Double costo, Turnos turnoId, LocalDateTime fecheRegistro) {
         this.id = id;
         this.estudianteId = estudianteId;
         this.costo = costo;
@@ -42,11 +44,11 @@ public class Matriculas {
         this.id = id;
     }
 
-    public Integer getEstudianteId() {
+    public Estudiante getEstudianteId() {
         return estudianteId;
     }
 
-    public void setEstudianteId(Integer estudianteId) {
+    public void setEstudianteId(Estudiante estudianteId) {
         this.estudianteId = estudianteId;
     }
 
@@ -58,11 +60,11 @@ public class Matriculas {
         this.costo = costo;
     }
 
-    public Integer getTurnoId() {
+    public Turnos getTurnoId() {
         return turnoId;
     }
 
-    public void setTurnoId(Integer turnoId) {
+    public void setTurnoId(Turnos turnoId) {
         this.turnoId = turnoId;
     }
 
@@ -76,7 +78,7 @@ public class Matriculas {
 
     @Override
     public String toString() {
-        return "Matriculas{" + "id=" + id + ", estudianteId=" + estudianteId + ", costo=" + costo + ", turnoId=" + turnoId + ", fecheRegistro=" + fecheRegistro + '}';
+        return "Matriculas{" + "id=" + id + ", estudianteId=" + estudianteId.getId() + ", costo=" + costo + ", turnoId=" + turnoId.getId() + ", fecheRegistro=" + fecheRegistro + '}';
     }
     
     

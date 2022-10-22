@@ -10,11 +10,11 @@ import matriculas_cursos.dao.CursosDao;
 import matriculas_cursos.dao.EstudianteDao;
 import matriculas_cursos.dao.MatriculasDao;
 import matriculas_cursos.dao.TurnosDao;
-import matriculas_cursos.tablas.CursoMatricula;
-import matriculas_cursos.tablas.Cursos;
-import matriculas_cursos.tablas.Estudiante;
-import matriculas_cursos.tablas.Matriculas;
-import matriculas_cursos.tablas.Turnos;
+import matriculas_cursos.model.CursoMatricula;
+import matriculas_cursos.model.Cursos;
+import matriculas_cursos.model.Estudiante;
+import matriculas_cursos.model.Matriculas;
+import matriculas_cursos.model.Turnos;
 
 /**
  *

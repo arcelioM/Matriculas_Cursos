@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import matriculas_cursos.dao.connection.ConnectionMySql;
-import matriculas_cursos.tablas.Cursos;
+import matriculas_cursos.model.Cursos;
 
 
 public class CursosDao {

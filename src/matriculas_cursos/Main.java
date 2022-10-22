@@ -2,7 +2,7 @@
 package matriculas_cursos;
 
 import java.util.Scanner;
-import matriculas_cursos.tablas.Estudiante;
+import matriculas_cursos.model.Estudiante;
 import matriculas_cursos.vistamenu.MatriculaVista;
 
 public class Main {

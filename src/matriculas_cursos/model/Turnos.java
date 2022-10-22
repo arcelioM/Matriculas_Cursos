@@ -1,5 +1,5 @@
 
-package matriculas_cursos.tablas;
+package matriculas_cursos.model;
 
 public class Turnos {
     

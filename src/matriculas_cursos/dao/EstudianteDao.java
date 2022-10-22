@@ -2,7 +2,7 @@
 package matriculas_cursos.dao;
 
 import java.util.List;
-import matriculas_cursos.tablas.Estudiante;
+import matriculas_cursos.model.Estudiante;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;

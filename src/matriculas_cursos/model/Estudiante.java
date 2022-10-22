@@ -1,8 +1,10 @@
 
-package matriculas_cursos.tablas;
+package matriculas_cursos.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Estudiante {
 
@@ -13,6 +15,9 @@ public class Estudiante {
     private Integer edad;
     private LocalDate fechaNacimiento;
     private LocalDateTime fechaCreacion;
+    private List<Matriculas> matriculas = new ArrayList<>();
+
+    
 
     public Estudiante() {
     }
@@ -94,6 +99,14 @@ public class Estudiante {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+    
+    public List<Matriculas> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matriculas> matriculas) {
+        this.matriculas = matriculas;
     }
 
     @Override
