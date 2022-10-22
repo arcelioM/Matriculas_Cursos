@@ -92,7 +92,11 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false); //ESCONDEMOS EL MENU PRINCIPAL
+        
+        //MOSTRAR LA VISTA DE MATRICULAS
         ListadoMatriculas viewMatriculas= new ListadoMatriculas();
+        viewMatriculas.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
