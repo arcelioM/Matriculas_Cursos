@@ -36,9 +36,9 @@ public class MatriculasDao {
                 Matriculas matriculas= new Matriculas();
                 
                 matriculas.setId(rs.getInt(1));
-                matriculas.setEstudianteId(rs.getInt(2));
+                matriculas.getEstudianteId().setId(rs.getInt(2));
                 matriculas.setCosto(rs.getDouble(3));
-                matriculas.setTurnoId(rs.getInt(4));
+                matriculas.getTurnoId().setId(rs.getInt(4));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
@@ -84,9 +84,9 @@ public class MatriculasDao {
             
             if(rs.next()){
                  
-                matriculas.setEstudianteId(rs.getInt(2));
+                matriculas.getEstudianteId().setId(rs.getInt(2));
                 matriculas.setCosto(rs.getDouble(3));
-                matriculas.setTurnoId(rs.getInt(4));
+                matriculas.getTurnoId().setId(rs.getInt(4));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
@@ -109,7 +109,7 @@ public class MatriculasDao {
     public List<Matriculas> getByEstudianteId(Matriculas matriculas){
         
         
-        if(matriculas==null || matriculas.getEstudianteId()==null || matriculas.getEstudianteId()<=0){
+        if(matriculas==null || matriculas.getEstudianteId()==null || matriculas.getEstudianteId().getId()==null  || matriculas.getEstudianteId().getId()<=0){
             return Collections.emptyList();
         }
         
@@ -117,7 +117,7 @@ public class MatriculasDao {
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
         String query="SELECT * FROM matriculas WHERE estudiante_id=?";
-        Integer idEstudiante=matriculas.getEstudianteId();
+        Integer idEstudiante=matriculas.getEstudianteId().getId();
         
         try{
             List<Matriculas> mastriculasDisponibles=new ArrayList<>();
@@ -129,9 +129,9 @@ public class MatriculasDao {
             while(rs.next()){
                 Matriculas matriculaDisponible= new Matriculas();
                 matriculaDisponible.setId(rs.getInt(1));
-                matriculaDisponible.setEstudianteId(rs.getInt(2));
+                matriculaDisponible.getEstudianteId().setId(rs.getInt(2));
                 matriculaDisponible.setCosto(rs.getDouble(3));
-                matriculaDisponible.setTurnoId(rs.getInt(4));
+                matriculaDisponible.getTurnoId().setId(rs.getInt(4));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
@@ -176,9 +176,9 @@ public class MatriculasDao {
         try{
             ps=conexionBD.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
-            ps.setInt(1, matriculas.getEstudianteId());
+            ps.setInt(1, matriculas.getEstudianteId().getId());
             ps.setDouble(2, matriculas.getCosto());
-            ps.setInt(3, matriculas.getTurnoId());
+            ps.setInt(3, matriculas.getTurnoId().getId());
             
             Integer rowAffected=ps.executeUpdate();
             
@@ -209,9 +209,9 @@ public class MatriculasDao {
         try{
             ps=conexionBD.prepareStatement(query);
 
-           ps.setInt(1, matriculas.getEstudianteId());
+           ps.setInt(1, matriculas.getEstudianteId().getId());
            ps.setDouble(2, matriculas.getCosto());
-           ps.setInt(3, matriculas.getTurnoId());
+           ps.setInt(3, matriculas.getTurnoId().getId());
            ps.setInt(4, matriculas.getId());
             
             Integer rowAffected=ps.executeUpdate();

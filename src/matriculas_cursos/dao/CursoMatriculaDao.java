@@ -30,8 +30,8 @@ public class CursoMatriculaDao {
             while(rs.next()){
                 CursoMatricula cursoMatricula= new CursoMatricula();
                 
-                cursoMatricula.setCursoId(rs.getInt(1));
-                cursoMatricula.setMatriculaId(rs.getInt(2));
+                cursoMatricula.getCursoId().setId(rs.getInt(1));
+                cursoMatricula.getMatriculaId().setId(rs.getInt(2));
 
                 listCursosMatriculas.add(cursoMatricula);
             }
@@ -54,15 +54,15 @@ public class CursoMatriculaDao {
         List<CursoMatricula> cursosMatriculados=new ArrayList<>();
         try{
             ps=conexionBD.prepareStatement(query);
-            ps.setInt(1,cursoMatricula.getMatriculaId() );
+            ps.setInt(1,cursoMatricula.getMatriculaId().getId() );
             
             rs=ps.executeQuery();
             
             
             while(rs.next()){
                 CursoMatricula cursosDisponibles= new CursoMatricula();
-                cursosDisponibles.setCursoId(rs.getInt(1));
-                cursosDisponibles.setMatriculaId(rs.getInt(2));
+                cursosDisponibles.getCursoId().setId(rs.getInt(1));
+                cursosDisponibles.getMatriculaId().setId(rs.getInt(2));
                 cursosMatriculados.add(cursosDisponibles);
             }
             return cursosMatriculados;
@@ -84,6 +84,9 @@ public class CursoMatriculaDao {
             return 0;
         }
         
+        if(cursosMatricula.getCursoId().getId() == null || cursosMatricula.getMatriculaId().getId()==null){
+            return 0;
+        }
         PreparedStatement ps=null;
         Connection conexionBD=ConnectionMySql.getConexion();
         String query="INSERT INTO curso_matricula (curso_id,matricula_id) VALUES(?,?)";
@@ -91,8 +94,8 @@ public class CursoMatriculaDao {
         try{
             ps=conexionBD.prepareStatement(query);
 
-            ps.setInt(1, cursosMatricula.getCursoId());
-            ps.setInt(2, cursosMatricula.getMatriculaId());
+            ps.setInt(1, cursosMatricula.getCursoId().getId());
+            ps.setInt(2, cursosMatricula.getMatriculaId().getId());
             
             Integer rowAffected=ps.executeUpdate();
             
@@ -118,8 +121,8 @@ public class CursoMatriculaDao {
         try{
             ps=conexionBD.prepareStatement(query);
            
-            ps.setInt(1, cursoMatricula.getCursoId());
-            ps.setInt(2, cursoMatricula.getMatriculaId());
+            ps.setInt(1, cursoMatricula.getCursoId().getId());
+            ps.setInt(2, cursoMatricula.getMatriculaId().getId());
             
             Integer rowAffected=ps.executeUpdate();
             
