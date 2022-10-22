@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import matriculas_cursos.dao.connection.ConnectionMySql;
 import matriculas_cursos.model.CursoMatricula;
+import matriculas_cursos.model.Cursos;
+import matriculas_cursos.model.Matriculas;
 
 
 public class CursoMatriculaDao {
@@ -30,8 +32,8 @@ public class CursoMatriculaDao {
             while(rs.next()){
                 CursoMatricula cursoMatricula= new CursoMatricula();
                 
-                cursoMatricula.getCursoId().setId(rs.getInt(1));
-                cursoMatricula.getMatriculaId().setId(rs.getInt(2));
+                cursoMatricula.setCursoId(new Cursos(rs.getInt(1)));
+                cursoMatricula.setMatriculaId(new Matriculas(rs.getInt(2)));
 
                 listCursosMatriculas.add(cursoMatricula);
             }
