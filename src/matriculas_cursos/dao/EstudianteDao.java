@@ -225,29 +225,5 @@ public class EstudianteDao {
         }
     }
     
-    public Integer remove(Estudiante estudiante){
-        
-        if(estudiante==null || estudiante.getId()==null || estudiante.getId()<=0){
-            return 0;
-        }
-        
-        PreparedStatement ps=null;
-        Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM estudiante WHERE id=?";
-        
-        try{
-            ps=conexionBD.prepareStatement(query);
-           
-            ps.setInt(1, estudiante.getId());
-            
-            Integer rowAffected=ps.executeUpdate();
-            
-            return rowAffected;
-        }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.EstudianteDao.update()");
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
    
 }

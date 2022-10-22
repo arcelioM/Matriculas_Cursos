@@ -224,28 +224,5 @@ public class MatriculasDao {
         }
     }
     
-    public Integer remove(Matriculas matriculas){
-        
-        if(matriculas==null || matriculas.getId()==null || matriculas.getId()<=0){
-            return 0;
-        }
-        
-        PreparedStatement ps=null;
-        Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM matriculas WHERE id=?";
-        
-        try{
-            ps=conexionBD.prepareStatement(query);
-           
-            ps.setInt(1, matriculas.getId());
-            
-            Integer rowAffected=ps.executeUpdate();
-            
-            return rowAffected;
-        }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.MatriculasDao.remove()");
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
+    
 }

@@ -148,28 +148,4 @@ public class TurnosDao {
         }
     }
     
-    public Integer remove(Turnos turnos){
-        
-        if(turnos==null || turnos.getId()==null || turnos.getId()<=0){
-            return 0;
-        }
-        
-        PreparedStatement ps=null;
-        Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM turnos WHERE id=?";
-        
-        try{
-            ps=conexionBD.prepareStatement(query);
-           
-            ps.setInt(1, turnos.getId());
-            
-            Integer rowAffected=ps.executeUpdate();
-            
-            return rowAffected;
-        }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.TurnosDao.remove()");
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
 }

@@ -148,28 +148,4 @@ public class CursosDao {
         }
     }
     
-    public Integer remove(Cursos cursos){
-        
-        if(cursos==null || cursos.getId()==null || cursos.getId()<=0){
-            return 0;
-        }
-        
-        PreparedStatement ps=null;
-        Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM cursos WHERE id=?";
-        
-        try{
-            ps=conexionBD.prepareStatement(query);
-           
-            ps.setInt(1, cursos.getId());
-            
-            Integer rowAffected=ps.executeUpdate();
-            
-            return rowAffected;
-        }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.CursosDao.remove()");
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
 }

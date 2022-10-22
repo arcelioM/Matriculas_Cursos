@@ -107,30 +107,4 @@ public class CursoMatriculaDao {
         }
     }
     
-    
-    public Integer remove(CursoMatricula cursoMatricula){
-        
-        if(cursoMatricula==null || cursoMatricula.getCursoId()==null || cursoMatricula.getMatriculaId()==null){
-            return 0;
-        }
-        
-        PreparedStatement ps=null;
-        Connection conexionBD=ConnectionMySql.getConexion();
-        String query="DELETE FROM curso_matricula WHERE curso_id=? AND matricula_id=? ";
-        
-        try{
-            ps=conexionBD.prepareStatement(query);
-           
-            ps.setInt(1, cursoMatricula.getCursoId().getId());
-            ps.setInt(2, cursoMatricula.getMatriculaId().getId());
-            
-            Integer rowAffected=ps.executeUpdate();
-            
-            return rowAffected;
-        }catch(SQLException e){
-            System.out.println("matriculas_cursos.dao.CursoMatriculaDao.remove()");
-            e.printStackTrace(System.out);
-            return 0;
-        }
-    }
 }
