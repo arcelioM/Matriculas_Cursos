@@ -63,8 +63,8 @@ public class CursoMatriculaDao {
             
             while(rs.next()){
                 CursoMatricula cursosDisponibles= new CursoMatricula();
-                cursosDisponibles.getCursoId().setId(rs.getInt(1));
-                cursosDisponibles.getMatriculaId().setId(rs.getInt(2));
+                cursosDisponibles.setCursoId(new Cursos(rs.getInt(1)));
+                cursosDisponibles.setMatriculaId(new Matriculas(rs.getInt(2)));
                 cursosMatriculados.add(cursosDisponibles);
             }
             return cursosMatriculados;
