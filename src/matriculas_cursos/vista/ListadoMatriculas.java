@@ -25,6 +25,8 @@ public class ListadoMatriculas extends javax.swing.JFrame {
         initComponents();
         this.cargarDatos();
         this.jTable2.setVisible(false);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         //this.jScrollPane2.setVisible(false);
     }
     
