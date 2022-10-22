@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import matriculas_cursos.dao.connection.ConnectionMySql;
+import matriculas_cursos.model.Estudiante;
 import matriculas_cursos.model.Matriculas;
+import matriculas_cursos.model.Turnos;
 
 
 public class MatriculasDao {
@@ -36,9 +38,9 @@ public class MatriculasDao {
                 Matriculas matriculas= new Matriculas();
                 
                 matriculas.setId(rs.getInt(1));
-                matriculas.getEstudianteId().setId(rs.getInt(2));
+                matriculas.setEstudianteId(new Estudiante(rs.getInt(2)));
                 matriculas.setCosto(rs.getDouble(3));
-                matriculas.getTurnoId().setId(rs.getInt(4));
+                matriculas.setTurnoId(new Turnos(rs.getInt(4)));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";
