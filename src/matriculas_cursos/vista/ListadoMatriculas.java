@@ -43,10 +43,10 @@ public class ListadoMatriculas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        verCursos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,10 +63,10 @@ public class ListadoMatriculas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Ver cursos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        verCursos.setText("Ver cursos");
+        verCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                verCursosActionPerformed(evt);
             }
         });
 
@@ -83,10 +83,10 @@ public class ListadoMatriculas extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jButton2.setText("Ir a menu principal");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelar.setText("Ir a menu principal");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelarActionPerformed(evt);
             }
         });
 
@@ -98,13 +98,13 @@ public class ListadoMatriculas extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(verCursos)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(493, 493, 493))
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,10 +116,10 @@ public class ListadoMatriculas extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(jButton1))
+                        .addComponent(verCursos))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(cancelar)
                 .addGap(80, 80, 80))
         );
 
@@ -137,28 +137,35 @@ public class ListadoMatriculas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void verCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCursosActionPerformed
         // TODO add your handling code here:
         if(jTable1.getSelectedRow()!= -1){
             
+            //SE OBTIENE EL INDICE DEL ARRAY DE DATOS QUE SE MUESTRAN EN LA TABLA
             Integer filaSeleccionada= this.jTable1.getSelectedRow();
+            
+            //LUEGO SE OBTIENE EL ID DE LA MATRICULA SELECCIONADA UTILIZANDO EL PASO ANTERIOR
             Integer idMatricula = (Integer)this.tableModel.getValueAt(filaSeleccionada, 0);
             EstructurarDatos datos = new EstructurarDatos();
             
+            //SE OBTIENE LOS DATOS PARA MOSTRAR LOS CURSOS
             DefaultTableModel tableModelCurso = datos.cargarDatosCursoPorMatricula(idMatricula);
+            //SE AGREGAN A LA LISTA
             this.jTable2.setModel(tableModelCurso);
+            //SE MUESTRA LA LISTA EN VENTANA
             this.jTable2.setVisible(true);
         }else{
+            //EN CASO DE NO HABER SELECCIONADO UNA FILA, SE MOSTRARA UN MENSAJE
             JOptionPane.showMessageDialog(null, "Debe seleccionar una matricula para ver sus cursos");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_verCursosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         Main main = new Main();
         main.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,12 +204,12 @@ public class ListadoMatriculas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton cancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton verCursos;
     // End of variables declaration//GEN-END:variables
 }

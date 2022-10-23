@@ -32,6 +32,7 @@ public class CursoMatriculaDao {
             while(rs.next()){
                 CursoMatricula cursoMatricula= new CursoMatricula();
                 
+                //CREA UN NUEVO OBJETO Y AGREGA EL ID DEL OBJETO Y SE LO ASIGNA A CURSOMATRICULA
                 cursoMatricula.setCursoId(new Cursos(rs.getInt(1)));
                 cursoMatricula.setMatriculaId(new Matriculas(rs.getInt(2)));
 

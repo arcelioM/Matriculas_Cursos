@@ -131,9 +131,9 @@ public class MatriculasDao {
             while(rs.next()){
                 Matriculas matriculaDisponible= new Matriculas();
                 matriculaDisponible.setId(rs.getInt(1));
-                matriculaDisponible.getEstudianteId().setId(rs.getInt(2));
+                matriculaDisponible.setEstudianteId(new Estudiante(rs.getInt(2)));
                 matriculaDisponible.setCosto(rs.getDouble(3));
-                matriculaDisponible.getTurnoId().setId(rs.getInt(4));
+                matriculaDisponible.setTurnoId(new Turnos(rs.getInt(4)));
 
                 //FORMATEO DE FECHA Y HORA
                 String formato = "yyyy-MM-dd HH:mm:ss";

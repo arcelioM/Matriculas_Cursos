@@ -368,12 +368,18 @@ public class RegistrarMatricula extends javax.swing.JFrame {
     private void eventAgregandoCursoAList(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventAgregandoCursoAList
         // TODO add your handling code here:
         
-        
+        //VALIDA QUE SE HAYA SELLECIONADO UN CURSO
         if(this.cursos2.getSelectedItem()!= null){
+            //AGREGAR EL CURSO A CURSOS SELLECIONADO
             this.cursoSeleccionado.add((Cursos)this.cursos2.getSelectedItem());
+            //LIMPIA EL JLIST
             this.modelList.clear();
+            
+            //ACTUALIZAR EL MODEL CON EL NUEVO DATO AGREGADO
             this.modelList.addAll(cursoSeleccionado);
+            //ACTUALIZA DATOS DE JLIST
             this.listCursos.setModel(modelList);
+            //ELIMINAR EL CURSO SELLECIONADO DE LAS OPCIONES DISPONIBLE
             this.cursos2.removeItemAt(this.cursos2.getSelectedIndex());
         }else{
             System.out.println("error: ");
@@ -410,10 +416,14 @@ public class RegistrarMatricula extends javax.swing.JFrame {
             matriculaText.setEstudianteId(estudiante);
             
             EstructurarDatos estructurarDatos = new EstructurarDatos();
+            //INTENTARA GUARDAR EL DATO DE LA MATRICULA EN LA BD
             Boolean exitoso = estructurarDatos.guardarRegistroMatriculas(matriculaText, this.cursoSeleccionado);
             
             if(exitoso){
                 JOptionPane.showMessageDialog(this, "Datos guardado exitosamente");
+                this.setVisible(false);
+                Main main = new Main();
+                main.setVisible(true);
             }else
                 JOptionPane.showMessageDialog(this, "Datos no fueron guardados");                
             
