@@ -1,18 +1,10 @@
 
 package matriculas_cursos.vista;
 
-import java.util.List;
 import java.util.Vector;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import matriculas_cursos.estrcuturar.EstructurarDatos;
-import matriculas_cursos.dao.CursoMatriculaDao;
-import matriculas_cursos.dao.MatriculasDao;
-import matriculas_cursos.model.CursoMatricula;
-import matriculas_cursos.model.Matriculas;
 
 
 public class ListadoMatriculas extends javax.swing.JFrame {

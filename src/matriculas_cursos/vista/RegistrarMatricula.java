@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package matriculas_cursos.vista;
 
 import java.time.LocalDate;
@@ -418,15 +413,15 @@ public class RegistrarMatricula extends javax.swing.JFrame {
             Boolean exitoso = estructurarDatos.guardarRegistroMatriculas(matriculaText, this.cursoSeleccionado);
             
             if(exitoso){
-                JOptionPane.showMessageDialog(null, "Datos guardado exitosamente");
+                JOptionPane.showMessageDialog(this, "Datos guardado exitosamente");
             }else
-                JOptionPane.showMessageDialog(null, "Datos no fueron guardados");                
+                JOptionPane.showMessageDialog(this, "Datos no fueron guardados");                
             
         }else if(!validadoraTodoCampoVacio()){
-            JOptionPane.showMessageDialog(null, "No deje campos vacios");
+            JOptionPane.showMessageDialog(this, "No deje campos vacios");
               
         }else if(!validarValorNumerico()){
-            JOptionPane.showMessageDialog(null, "Verifique los valores numericos");
+            JOptionPane.showMessageDialog(this, "Verifique los valores numericos");
         }
     }//GEN-LAST:event_guardarDatosEvent
 
@@ -434,7 +429,7 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         Main main = new Main();
-        main.setVisible(false);
+        main.setVisible(true);
     }//GEN-LAST:event_CancelarguardarDatosEvent
 
     /**

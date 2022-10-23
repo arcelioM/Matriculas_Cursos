@@ -1,4 +1,3 @@
-
 package matriculas_cursos.estrcuturar;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import matriculas_cursos.model.Cursos;
 import matriculas_cursos.model.Estudiante;
 import matriculas_cursos.model.Matriculas;
 import matriculas_cursos.model.Turnos;
-import java.sql.SQLException;
 
 
 
