@@ -10,11 +10,14 @@ import matriculas_cursos.dao.CursosDao;
 import matriculas_cursos.dao.EstudianteDao;
 import matriculas_cursos.dao.MatriculasDao;
 import matriculas_cursos.dao.TurnosDao;
+import matriculas_cursos.dao.connection.ConnectionMySql;
 import matriculas_cursos.model.CursoMatricula;
 import matriculas_cursos.model.Cursos;
 import matriculas_cursos.model.Estudiante;
 import matriculas_cursos.model.Matriculas;
 import matriculas_cursos.model.Turnos;
+import java.sql.SQLException;
+
 
 
 public class EstructurarDatos {
@@ -112,4 +115,60 @@ public class EstructurarDatos {
         dataCombo.addAll(listTurnos);
         return dataCombo;
     }
+    
+    public boolean guardarRegistroMatriculas(Matriculas matriculas, List<Cursos> cursos){
+        
+        Estudiante estudiante = matriculas.getEstudianteId();
+        
+        Integer idGenEstudiante = this.estudianteDao.save(estudiante);
+        
+        //SI NO SE AGREGO CORRECTAMENTE EL ESTUDIANTE SE HARA UN ROOLLBACK
+        if(idGenEstudiante==0){
+            if(ConnectionMySql.rollBack()){
+                ConnectionMySql.closeConexion();
+            }   
+            return false;
+        }
+        matriculas.getEstudianteId().setId(idGenEstudiante);
+        
+        Integer idMatricula = this.matriculaDao.save(matriculas);
+        
+        //SI NO SE AGREGO CORRECTAMENTE LA MATRICULA SE HARA UN ROOLLBACK
+        if(idMatricula==0){
+            if(ConnectionMySql.rollBack()){
+                ConnectionMySql.closeConexion();
+            }   
+            return false;
+        }
+        matriculas.setId(idMatricula);
+        
+        Integer filaAFectadas = 0;
+        for(Cursos cs : cursos){
+            CursoMatricula cm = new CursoMatricula();
+            cm.setCursoId(cs);
+            cm.setMatriculaId(matriculas);
+            Integer filaRegistro = this.cursoMatriculaDao.save(cm);
+            
+            //SE EN ALGUN CASO SUCEDE ALGUN ERROR EN INSERCION, ROMPERA EL CICLO Y RETORNARA FALSO
+            if(filaRegistro==0){
+                filaAFectadas = 0;
+                break;
+            }
+             filaAFectadas +=filaRegistro; 
+        }
+        
+        //SE HARA ROLLBACK SI NO SE AGREGA CORRECTAMENTES LOS CURSOS
+        if(filaAFectadas>0){
+            
+            if(ConnectionMySql.commit()){
+                ConnectionMySql.closeConexion();
+                return true;
+            }else if(ConnectionMySql.rollBack()){
+                ConnectionMySql.closeConexion();
+                return false;
+            }
+        }
+        return false;
+    }
 }
+ 
