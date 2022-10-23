@@ -65,6 +65,24 @@ public class RegistrarMatricula extends javax.swing.JFrame {
 
         return true;
     }
+    
+    private boolean validarValorNumerico(){
+        
+        try{
+            Integer edad = Integer.valueOf(this.edad.getText());
+            Integer año = Integer.valueOf(this.año.getText());
+            Integer mes = Integer.valueOf(this.mes.getText());
+            Integer dia = Integer.valueOf(this.dia.getText());
+            Double costo = Double.valueOf(this.costo2.getText());
+            
+            if(edad<=0 || año <=1900 || año> 2010 || mes >12 || dia >31){
+                return false;
+            }
+            return true;
+        }catch(NumberFormatException e){
+            return false;
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -115,6 +133,12 @@ public class RegistrarMatricula extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("Edad");
+
+        edad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edadActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de nacimiento");
@@ -328,13 +352,13 @@ public class RegistrarMatricula extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(this.validadoraTodoCampoVacio()){
-            JOptionPane.showMessageDialog(null, "Campos rellenos correctamente");
-        }else{
-           JOptionPane.showMessageDialog(null, "Campos rellenos incorrectamente");
-
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void edadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edadActionPerformed
+        // TODO add your handling code here:
+        System.out.println("VALOR CAMBIADO");
+    }//GEN-LAST:event_edadActionPerformed
 
     /**
      * @param args the command line arguments
