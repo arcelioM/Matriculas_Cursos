@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import matriculas_cursos.estrcuturar.EstructurarDatos;
 import matriculas_cursos.model.Cursos;
 
@@ -35,6 +36,34 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         EstructurarDatos datoEstructura= new EstructurarDatos();
         this.cursos2.setModel(datoEstructura.cargarDatosCursos());
         this.turnos2.setModel(datoEstructura.cargarDatosTurnos());
+    }
+    
+    private boolean validadoraTodoCampoVacio(){
+        
+        //VALIDANDO QUE LOS CAMPOS NO ESTEN VACIOS
+        if(this.nombre.getText().trim().equals("") || this.apellido.getText().trim().equals("") || this.costo2.getText().trim().equals("")){
+            return false;
+        }
+        
+        if(this.edad.getText().trim().equals("") || this.año.getText().trim().equals("") || this.mes.getText().trim().equals("")){
+            return false;
+        }
+        
+        if(this.dia.getText().trim().equals("")){
+            return false;
+        }
+        
+        //VALIDANDO SI COMBOBOX HA SIDO SELECCIONADO
+        if(this.cursos2.getSelectedItem()==null || this.turnos2.getSelectedItem()==null){
+            return false;
+        }
+        
+        //VALIDANDO QUE SE HAYA AGREGADO CURSOS
+        if(this.modelList.getSize()<=0 || this.cursoSeleccionado.size()<=0){
+            return false;
+        }
+
+        return true;
     }
 
     /** This method is called from within the constructor to
@@ -81,17 +110,11 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Nombre");
 
-        nombre.setText("jTextField2");
-
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Apellido");
 
-        apellido.setText("jTextField2");
-
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("Edad");
-
-        edad.setText("jTextField2");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de nacimiento");
@@ -99,25 +122,17 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel6.setText("Año");
 
-        año.setText("jTextField2");
-
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel7.setText("Mes");
 
-        mes.setText("jTextField2");
-
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel8.setText("Dia");
-
-        dia.setText("jTextField2");
 
         jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel15.setText("Turno");
 
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel16.setText("Costo");
-
-        costo2.setText("jTextField1");
 
         jLabel17.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel17.setText("Cursos");
@@ -134,7 +149,7 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         jButton3.setText("Agregar curso");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                eventAgregandoCursoAList(evt);
             }
         });
 
@@ -155,8 +170,8 @@ public class RegistrarMatricula extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cursos2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(costo2, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                                .addComponent(turnos2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(costo2)
+                                .addComponent(turnos2, 0, 206, Short.MAX_VALUE)))))
                 .addGap(49, 49, 49)
                 .addComponent(jButton3)
                 .addContainerGap(69, Short.MAX_VALUE))
@@ -184,6 +199,11 @@ public class RegistrarMatricula extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton1.setText("Guardar datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -220,13 +240,13 @@ public class RegistrarMatricula extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addGap(17, 17, 17)
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(mes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(mes, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))
+                        .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
@@ -291,7 +311,7 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cursos2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void eventAgregandoCursoAList(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventAgregandoCursoAList
         // TODO add your handling code here:
         
         
@@ -302,9 +322,19 @@ public class RegistrarMatricula extends javax.swing.JFrame {
             this.listCursos.setModel(modelList);
             this.cursos2.removeItemAt(this.cursos2.getSelectedIndex());
         }else{
-            System.out.println("error");
+            System.out.println("error: ");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_eventAgregandoCursoAList
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(this.validadoraTodoCampoVacio()){
+            JOptionPane.showMessageDialog(null, "Campos rellenos correctamente");
+        }else{
+           JOptionPane.showMessageDialog(null, "Campos rellenos incorrectamente");
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

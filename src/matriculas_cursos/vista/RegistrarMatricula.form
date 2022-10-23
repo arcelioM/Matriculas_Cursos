@@ -82,15 +82,15 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="26" max="32767" attributes="0"/>
-                                  <Component id="mes" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="mes" pref="64" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="dia" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          <Component id="dia" min="-2" pref="66" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
@@ -163,9 +163,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nombre">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -176,9 +173,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="apellido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -189,9 +183,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="edad">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -210,9 +201,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="a&#xf1;o">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -223,9 +211,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="mes">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -236,9 +221,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dia">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">
 
@@ -259,8 +241,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cursos2" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="costo2" pref="206" max="32767" attributes="0"/>
-                                      <Component id="turnos2" max="32767" attributes="0"/>
+                                      <Component id="costo2" max="32767" attributes="0"/>
+                                      <Component id="turnos2" pref="206" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -320,9 +302,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="costo2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
@@ -362,7 +341,7 @@
                 <Property name="text" type="java.lang.String" value="Agregar curso"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eventAgregandoCursoAList"/>
               </Events>
             </Component>
           </SubComponents>
@@ -374,6 +353,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar datos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
