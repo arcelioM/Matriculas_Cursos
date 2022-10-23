@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import matriculas_cursos.dao.connection.ConnectionMySql;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -159,7 +160,7 @@ public class EstudianteDao {
     }
     
     /**
-     * 1 si la operacion se ejcuta con exito
+     * idGenerado para el estudiante,  si la operacion se ejcuta con exito
      * 0 si hubo algun error
      * @param estudiante
      * @return Integer
@@ -178,7 +179,7 @@ public class EstudianteDao {
         String query="INSERT INTO estudiantes (cedula,nombre,apellido,edad,fechaNacimiento) VALUES(?,?,?,?,?)";
         
         try{
-            ps=conexionBD.prepareStatement(query);
+            ps=conexionBD.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, estudiante.getCedula());
             ps.setString(2, estudiante.getNombre());
@@ -187,6 +188,13 @@ public class EstudianteDao {
             ps.setString(5, estudiante.getFechaNacimiento().toString());
             
             Integer rowAffected=ps.executeUpdate();
+            
+            if(rowAffected==1){
+                ResultSet rs=ps.getGeneratedKeys();
+                if(rs.next()){
+                    return rs.getInt(1); //DEVOLVERA EL ID CREADO AL GENERAL EL REGISTRO
+                }
+            }
             
             return rowAffected;
         }catch(SQLException e){
