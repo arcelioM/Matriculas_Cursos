@@ -19,8 +19,9 @@ public class ConnectionMySql {
         try{
             if(conn==null){
                ConnectionMySql.conn=DriverManager.getConnection("jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE, USERNAME, PASS);
+               conn.setAutoCommit(false);
             }
-            conn.setAutoCommit(false);
+            
             return ConnectionMySql.conn;
         }catch(SQLException e){
             e.printStackTrace(System.out);
@@ -35,6 +36,24 @@ public class ConnectionMySql {
             e.printStackTrace(System.out);
             
         } 
+    }
+    
+    public static boolean commit(){
+        try{
+            ConnectionMySql.getConexion().commit();
+            return true;
+        }catch(SQLException e){
+           return false; 
+        }
+    }
+    
+    public static boolean rollBack(){
+        try{
+            ConnectionMySql.getConexion().rollback();
+            return true;
+        }catch(SQLException e){
+           return false; 
+        }
     }
     
 }
