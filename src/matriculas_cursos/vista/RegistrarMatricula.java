@@ -5,13 +5,16 @@
 
 package matriculas_cursos.vista;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import matriculas_cursos.estrcuturar.EstructurarDatos;
 import matriculas_cursos.model.Cursos;
+import matriculas_cursos.model.Estudiante;
+import matriculas_cursos.model.Matriculas;
+import matriculas_cursos.model.Turnos;
 
 /**
  *
@@ -49,12 +52,17 @@ public class RegistrarMatricula extends javax.swing.JFrame {
             return false;
         }
         
-        if(this.dia.getText().trim().equals("")){
+        if(this.dia.getText().trim().equals("") || this.cedula.getText().trim().equals("")){
             return false;
         }
         
         //VALIDANDO SI COMBOBOX HA SIDO SELECCIONADO
         if(this.cursos2.getSelectedItem()==null || this.turnos2.getSelectedItem()==null){
+            
+            if(this.cursos2.getItemCount()<=0){
+                return true;
+            }
+            
             return false;
         }
         
@@ -69,13 +77,14 @@ public class RegistrarMatricula extends javax.swing.JFrame {
     private boolean validarValorNumerico(){
         
         try{
+            Integer cedula = Integer.valueOf(this.cedula.getText());
             Integer edad = Integer.valueOf(this.edad.getText());
             Integer año = Integer.valueOf(this.año.getText());
             Integer mes = Integer.valueOf(this.mes.getText());
             Integer dia = Integer.valueOf(this.dia.getText());
             Double costo = Double.valueOf(this.costo2.getText());
             
-            if(edad<=0 || año <=1900 || año> 2010 || mes >12 || dia >31){
+            if(edad<=0 || año <=1900 || año> 2010 || mes >12 || dia >31 || cedula < 99999){
                 return false;
             }
             return true;
@@ -119,6 +128,8 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         listCursos = new javax.swing.JList<>();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cedula = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,12 +144,6 @@ public class RegistrarMatricula extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("Edad");
-
-        edad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edadActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de nacimiento");
@@ -225,9 +230,12 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         jButton1.setText("Guardar datos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                guardarDatosEvent(evt);
             }
         });
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel9.setText("Cedula");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,49 +247,60 @@ public class RegistrarMatricula extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(edad, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(año, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(9, 9, 9))
+                                            .addComponent(jLabel5))
+                                        .addGap(17, 17, 17)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(mes, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edad, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(año, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(9, 9, 9))
-                                    .addComponent(jLabel5))
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mes, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)))))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
+                .addGap(85, 85, 85)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -350,15 +369,50 @@ public class RegistrarMatricula extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eventAgregandoCursoAList
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void guardarDatosEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosEvent
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void edadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edadActionPerformed
-        // TODO add your handling code here:
-        System.out.println("VALOR CAMBIADO");
-    }//GEN-LAST:event_edadActionPerformed
+        if(validadoraTodoCampoVacio() && validarValorNumerico()){
+            
+            //OBTENIENDO VALOR DE LOS DATOS DEL ESTUDIANTE
+            Integer cedulaText = Integer.valueOf(this.cedula.getText().trim());
+            String nombreText = this.nombre.getText().trim();
+            String apellidoText = this.apellido.getText().trim();
+            Integer edadText = Integer.valueOf(this.edad.getText());
+            Integer añoText = Integer.valueOf(this.año.getText());
+            Integer mesText = Integer.valueOf(this.mes.getText());
+            Integer diaText = Integer.valueOf(this.dia.getText());
+            Estudiante estudiante = new Estudiante();
+            estudiante.setCedula(cedulaText);
+            estudiante.setNombre(nombreText);
+            estudiante.setApellido(apellidoText);
+            estudiante.setEdad(edadText);
+            estudiante.setFechaNacimiento(LocalDate.of(añoText, mesText, diaText));
+            
+            //OBTENIENDO VALOR DE LOS DATOS DE LA MATRICULA
+            Turnos turnoText = (Turnos)this.turnos2.getSelectedItem(); 
+            Double costoText = Double.valueOf(this.costo2.getText().trim());
+            
+            Matriculas matriculaText = new Matriculas();
+            matriculaText.setCosto(costoText);
+            matriculaText.setTurnoId(turnoText);
+            matriculaText.setEstudianteId(estudiante);
+            
+            EstructurarDatos estructurarDatos = new EstructurarDatos();
+            Boolean exitoso = estructurarDatos.guardarRegistroMatriculas(matriculaText, this.cursoSeleccionado);
+            
+            if(exitoso){
+                JOptionPane.showMessageDialog(null, "Datos guardado exitosamente");
+            }else
+                JOptionPane.showMessageDialog(null, "Datos no fueron guardados");                
+            
+        }else if(!validadoraTodoCampoVacio()){
+            JOptionPane.showMessageDialog(null, "No deje campos vacios");
+              
+        }else if(!validarValorNumerico()){
+            JOptionPane.showMessageDialog(null, "Verifique los valores numericos");
+        }
+    }//GEN-LAST:event_guardarDatosEvent
 
     /**
      * @param args the command line arguments
@@ -398,6 +452,7 @@ public class RegistrarMatricula extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellido;
     private javax.swing.JTextField año;
+    private javax.swing.JTextField cedula;
     private javax.swing.JTextField costo2;
     private javax.swing.JComboBox<String> cursos2;
     private javax.swing.JTextField dia;
@@ -415,6 +470,7 @@ public class RegistrarMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
